@@ -21,6 +21,16 @@ jobs:
       - store_artifacts:
           path: build/libs
           destination: prefix
+  dockerize:
+    machine: true
+    steps:
+      - checkout
+      # Login to docker
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      # Build application image
+      - run: docker build -t $DOCKER_USER/myapp:$CIRCLE_SHA1 .
+      # deploy image
+      - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
 workflows: 
   version: 2
   test_and_package:
