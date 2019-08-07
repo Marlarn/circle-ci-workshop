@@ -36,7 +36,7 @@ workflows:
   test_and_package_and_dockerize:
     jobs:
       - test
-      - package
+      - package:
           requires: 
             - test
       - dockerize
