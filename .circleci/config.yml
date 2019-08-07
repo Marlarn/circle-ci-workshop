@@ -33,8 +33,11 @@ jobs:
       - run: docker push $DOCKER_USER/myapp:$CIRCLE_SHA1
 workflows: 
   version: 2
-  test_and_package:
+  test_and_package_and_dockerize:
     jobs:
-      - build
+      - test
       - package
+        requires: 
+          - test
+      - dockerize
 
